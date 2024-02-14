@@ -125,7 +125,7 @@ const ProductList = () => {
         {/* Product Card */}
         <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-col-1 gap-4">
           {currentItems.map((item, index) => (
-            <Card key={index} />
+            <Card key={index} item={item} />
           ))}
         </div>
       </div>
