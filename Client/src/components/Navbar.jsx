@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import Modal from "./Modal";
+import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
+  const { user, setUser, createUser } = useContext(AuthContext);
+  console.log(user);
   const navItems = (
     <>
-      <li>
-        <a>Home</a>
+      <li className="">
+        <a className="text-neutral">Home</a>
       </li>
       <li tabIndex={0}>
         <details>
-          <summary>Category</summary>
-          <ul className="p-2">
+          <summary className="text-neutral">Category</summary>
+          <ul className="p-2 text-neutral">
             <li>
               <a>All</a>
             </li>
@@ -20,7 +24,7 @@ const Navbar = () => {
               <a>Accessories</a>
             </li>
             <li>
-              <a>Gedgets</a>
+              <a>Gadget</a>
             </li>
             <li>
               <a>Swag</a>
@@ -30,10 +34,10 @@ const Navbar = () => {
       </li>
       <li tabIndex={0}>
         <details>
-          <summary>Services</summary>
-          <ul className="p-2">
+          <summary className="text-neutral">Service</summary>
+          <ul className="p-2 text-neutral">
             <li>
-              <a>Order online</a>
+              <a>Order Online</a>
             </li>
             <li>
               <a>Order Tracking</a>
@@ -42,14 +46,14 @@ const Navbar = () => {
         </details>
       </li>
       <li>
-        <a>Promotion</a>
+        <a className="text-neutral">Promotion</a>
       </li>
     </>
   );
   return (
     <header className="max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
       <div>
-        <div className="navbar text-black-content bg-white ">
+        <div className="navbar bg-base-100 text-neutral-content rounded-b-lg shadow-xl">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -74,70 +78,80 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 "
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 {navItems}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl">
+            <a className="btn btn-ghost text-xl text-black" href="/">
               {" "}
               <img src="/logo.png" alt="" className="h-12 pr-1 mx-auto" />
-              <span className="text-red"> SE Souvenir Shop </span>
+              SE Souvenir Shop
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 ">{navItems}</ul>
           </div>
           <div className="navbar-end">
-            <button className=" btn btn-ghost btn-circle hidden sm:flex mr-3 item-center justify-center" ></button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-              />
-            </svg>
-
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-              />
-            </svg>
-
-            <a className="btn bg-red rounded-full px-5 text-white flex items-center gap-2 ">
+            <button className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center text-black">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
-              contect
-            </a>
+            </button>
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle hidden lg:flex text-black"
+            >
+              <div className="indicator">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span className="badge badge-sm indicator-item ">8</span>
+              </div>
+            </div>
+            <button
+              className="btn bg-red rounded-full px-5 text-white flex items-center gap-2  "
+              onClick={() => document.getElementById("login").showModal()}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Login
+            </button>
           </div>
+          <Modal name="login" />
         </div>
       </div>
     </header>
