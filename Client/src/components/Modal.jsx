@@ -1,40 +1,52 @@
-import {useContext} from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
-import SignUp from "./signup";
 
 const Modal = ({ name }) => {
-    const {login} = useContext(AuthContext);
+  const { login, signUpWithGoogle } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    login(data.email, data.password).then((result)=>{
-        const user = result.user;
-        console.log(user)
-        alert("Login Successful")
-    }).catch((error)=>{
-        console.log(error)
-    })
-  };
-  const googleSignup = () => {
-    SignUpWithGoogle()
-    .then((result) => {
-      const user = result.user;
-      console.log(user)
-      alert("Login Google Successful")
-  }).catch((error)=>{
-      console.log(error)
-  })
-  }
 
+  const onSubmit = (data) => {
+    console.log(data);
+    login(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        //console.log(user);
+        alert("Login Successful");
+        document.getElementById(name).close();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const googleSignUp = () => {
+    signUpWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        alert("Google SigUp Successfully");
+        document.getElementById("login").close();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
+      {/* Open the modal using document.getElementById('ID').showModal() method */}
+
       <dialog
         id={name}
         className="modal modal-bottom sm:modal-middle text-black"
@@ -73,7 +85,7 @@ const Modal = ({ name }) => {
                   </a>
                 </label>
               </div>
-              <div className="form-control mt-6">
+              <div className="form-control mt-6 ">
                 <input
                   type="submit"
                   value="Login"
@@ -82,7 +94,7 @@ const Modal = ({ name }) => {
               </div>
               <p className="text-center my-2">
                 Don't have an account?{" "}
-                <Link to={"/singup"} className="underline text-red ml-1">
+                <Link to={"/signup"} className="underline text-red ml-1">
                   Sign Up Now
                 </Link>
               </p>
@@ -95,7 +107,7 @@ const Modal = ({ name }) => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-6 h-6"
+                  className="w-6 h-6 text-red "
                 >
                   <path
                     fillRule="evenodd"
@@ -105,15 +117,17 @@ const Modal = ({ name }) => {
                 </svg>
               </button>
             </form>
-            <div className="text-center space-x-3 md-3">
-              <button className="btn btn-ghost btn-circle hover:bg-red"
-              onClick={googleSignup}>
+            <div className="text-center space-x-3 mb-5">
+              <button
+                className="btn btn-ghost btn-circle hover:bg-red hover:text-white"
+                onClick={googleSignUp}
+              >
                 <FaGoogle />
               </button>
-              <button className="btn btn-ghost btn-circle hover:bg-red">
+              <button className="btn btn-ghost btn-circle hover:bg-red hover:text-white">
                 <FaFacebook />
               </button>
-              <button className="btn btn-ghost btn-circle hover:bg-red">
+              <button className="btn btn-ghost btn-circle hover:bg-red hover:text-white">
                 <FaGithub />
               </button>
             </div>
