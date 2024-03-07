@@ -24,14 +24,16 @@ const Card = ({ item }) => {
       quantity:1,
     };
       if(user && user.email){
-    Swal.fire({
-      title: "Product added to Cart",
-      position: "center",
-      icon: "success",
-      showConfirmButton: false,
-    }); //การยิง api 
+ //การยิง api 
     axios.post("http://localhost:5000/carts" , cartItem).then(
- 
+    
+      Swal.fire({
+        title: "Product added to Cart",
+        position: "center",
+        icon: "success",
+        showConfirmButton: false,
+      })
+    
     )
     console.log(cartItem);
 
