@@ -14,7 +14,7 @@ const Card = ({ item }) => {
     setIsHeartFilled(!isHeartFilled);
   };
 
-  const handleAddtoCart = ({item}) => {
+  const handleAddtoCart = (item) => {
     const cartItem = {
       productId: item._id,
       name:item.name,
@@ -22,17 +22,16 @@ const Card = ({ item }) => {
       price:item.price,
       image:item.image,
       quantity:1,
-    };    
+    };
       if(user && user.email){
     Swal.fire({
       title: "Product added to Cart",
       position: "center",
       icon: "success",
       showConfirmButton: false,
-      timer:1500,
     }); //การยิง api 
     axios.post("http://localhost:5000/carts" , cartItem).then(
-      res.status(201).json
+ 
     )
     console.log(cartItem);
 
