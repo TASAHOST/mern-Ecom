@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const productRouter = require("./routes/product.router");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const cartRouter = require("./routes/cart.router");
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -22,6 +23,11 @@ const swaggerDefinition = {
       url: "https://github.com/TASAHOST",
       email: "644259008@webmail.npru.ac.th",
     },
+  },
+  externalDocs:{
+      description:"Download Swagger.json",
+      url:"/swagger.json"
+
   },
   servers: [
     {
@@ -48,7 +54,12 @@ app.use(cors({ credentials: true, origin: CLIENT_URL }));
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get("/swagger.json", (req,res)=>{
+  res.header("Content-Type","application.json");
+  res.send(swaggerSpec);
+}
 
+)
 //เชื่อมต่อกับ mongo
 const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI);
@@ -59,6 +70,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/products", productRouter);
+app.use("/carts", cartRouter);
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {

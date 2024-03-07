@@ -25,6 +25,7 @@ const ProductList = () => {
     };
     fetchData();
   }, []);
+
   const filterItems = (category) => {
     const filtered =
       category === "all"
@@ -52,11 +53,13 @@ const ProductList = () => {
         sortedItems.sort((a, b) => b.price - a.price);
         break;
     }
+
     setFilteredItems(sortedItems);
     setCurrentPage(1);
   };
   const indexOfLastItem = itemPerPages * currentPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPages;
+  //สไลด์จะเอา ตัวเลขที่ได้มาเเล้วก็เอาไปทำ < เอาน้อยกว่าตัวเลขที่ได้
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
