@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import "../App.css";
 import Footer from "../components/footer";
 
+
 const Main = () => {
   return (
     <div>

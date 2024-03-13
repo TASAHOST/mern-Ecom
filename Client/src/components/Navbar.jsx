@@ -1,20 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { AuthContext } from "../context/AuthProvider";
 import Profile from "./Profile";
+import { Link, useNavigate } from "react-router-dom";
+import useCart from "../hook/useCart";
 
-const Navbar = () => {
-  const { user, setUser, createUser } = useContext(AuthContext);
-  console.log(user);
+const NavBar = () => {
+  const { user, setUser, createrUser, cartTrigger } = useContext(AuthContext);
+  const [cart, refresh] = useCart();
+  console.log(cart);
+  const navigate = useNavigate();
+  // console.log(cartTrigger);
+  
+  // const [length, setLength] = useState(0);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await axios.get(
+  //       `http://localhost:5000/carts/${user.email}`
+  //     );
+  //     if (response.status !== 200) {
+  //       console.log(response.data);
+  //     } else {
+  //       setLength(response.data.length);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [cartTrigger]);
+
   const navItems = (
     <>
-      <li className="">
-        <a className="text-neutral">Home</a>
+      <li>
+        <a>Home</a>
       </li>
       <li tabIndex={0}>
         <details>
-          <summary className="text-neutral">Category</summary>
-          <ul className="p-2 text-neutral">
+          <summary>Category</summary>
+          <ul className="p-2">
             <li>
               <a>All</a>
             </li>
@@ -25,7 +46,7 @@ const Navbar = () => {
               <a>Accessories</a>
             </li>
             <li>
-              <a>Gadget</a>
+              <a>Gedgets</a>
             </li>
             <li>
               <a>Swag</a>
@@ -35,10 +56,10 @@ const Navbar = () => {
       </li>
       <li tabIndex={0}>
         <details>
-          <summary className="text-neutral">Service</summary>
-          <ul className="p-2 text-neutral">
+          <summary>Services</summary>
+          <ul className="p-2">
             <li>
-              <a>Order Online</a>
+              <a>Order online</a>
             </li>
             <li>
               <a>Order Tracking</a>
@@ -47,14 +68,14 @@ const Navbar = () => {
         </details>
       </li>
       <li>
-        <a className="text-neutral">Promotion</a>
+        <a>Promotion</a>
       </li>
     </>
   );
   return (
-    <header className="max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
-      <div>
-        <div className="navbar bg-base-100 text-neutral-content rounded-b-lg shadow-xl">
+    <header className="max-w-screen-1xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out navbar z-50">
+      <div className="navbar xl:px">
+        <div className="navbar bg-base-100 rounded-md">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -84,17 +105,17 @@ const Navbar = () => {
                 {navItems}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl text-black" href="/">
-              {" "}
+            <a className="btn btn-ghost text-xl">
               <img src="/logo.png" alt="" className="h-12 pr-1 mx-auto" />
-              SE Souvenir Shop
+              <span className="text-red">SE Souvenir Shop</span>
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 ">{navItems}</ul>
+            <ul className="menu menu-horizontal px-1">{navItems}</ul>
           </div>
+
           <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center text-black">
+            <button className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -113,9 +134,10 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle hidden lg:flex text-black"
+              className="btn btn-ghost btn-circle hidden lg:flex mr-3 items-center justify-center"
             >
-              <div className="indicator">
+              <Link to={"/Cart"}>
+               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -130,8 +152,10 @@ const Navbar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item ">8</span>
+                <span className="badge badge-sm indicator-item">{cart.length || 0}</span>
               </div>
+              </Link>
+             
             </div>
             {user ? (
               <>
@@ -165,4 +189,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

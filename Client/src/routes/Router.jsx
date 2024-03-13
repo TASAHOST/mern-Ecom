@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../pages/home/Home";
 import ProductList from "../pages/shop/ProductList";
+import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-import Signin from "../components/Signin";
 import UpdateProfile from "../pages/dashboard/UpdateProfile";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
+import Cart from "../pages/shop/Cart";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,10 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
-
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
       {
         path: "/update-profile",
         element: <UpdateProfile />,
@@ -38,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signin",
-    element: <Signin />,
+    element: <SignIn />,
   },
 ]);
 
